@@ -107,14 +107,12 @@ const PinName digitalPin[] = {
 /*
  * UART objects
  */
-// Replace PX_n_Rx and PX_n_Tx by UART_RX and UART_TX pin names
+
 HardwareSerial  Serial(PA_10, PA_9); // Connected to ST-Link
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
 
-// Define as many Serial instance as desired
-// Replace 'SerialX' by the desired name
 //#ifdef ENABLE_SERIAL1
 //HardwareSerial  Serial1(PA_10, PA_9);
 //

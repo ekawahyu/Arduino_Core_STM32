@@ -181,7 +181,6 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// declare here as many UART objects than defined in variant.cpp
 extern HardwareSerial Serial;
 //extern HardwareSerial SerialX;
 //...
