@@ -12,7 +12,7 @@ SRCS += PeripheralPins.c
 CXXSRCS = abi.cpp HardwareSerial.cpp IPAddress.cpp main.cpp new.cpp Print.cpp
 CXXSRCS += RingBuffer.cpp Stream.cpp Tone.cpp wiring_pulse.cpp WMath.cpp WString.cpp
 CXXSRCS += variant.cpp
-INOSRCS = Blink.ino
+INOSRCS = toneMelody.ino
 
 # all the files will be generated with this name (main.elf, main.bin, main.hex, etc)
 PROJ_NAME=main
@@ -61,7 +61,7 @@ vpath %.c $(SYSTEM) ../../cores/arduino ../../cores/arduino/stm32
 vpath %.cpp ../../cores/arduino
 vpath %.s $(DRIVER)/CMSIS/Device/ST/STM32F0xx/Source/Templates/gcc
 vpath %.a $(DRIVER)
-vpath %.ino ../../../examples/Blink
+vpath %.ino ../../../examples/toneMelody
 
 ROOT=$(shell pwd)
 
