@@ -153,7 +153,7 @@ enum {
 
 //Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
-#define TIMER_TONE              TIM15
+#define TIMER_TONE              TIM14
 #define TIMER_UART_EMULATED     TIM16
 
 //Do not use basic timer: OC is required
