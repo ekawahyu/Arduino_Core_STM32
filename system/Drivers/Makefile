@@ -39,7 +39,6 @@ all: libstm32f0.a
 
 libstm32f0.a: $(OBJS)
 	$(AR) -r $@ $(OBJS)
-	rm -f $(OBJS)
 
 clean:
 	rm -f $(OBJS) libstm32f0.a

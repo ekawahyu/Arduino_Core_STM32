@@ -71,7 +71,7 @@ typedef enum {
 	LastPort = PortZ-1
 } PortName;
 
-_Static_assert  (LastPort <= 0x0F, "PortName must be less than 16");
+//_Static_assert  (LastPort <= 0x0F, "PortName must be less than 16");
 
 #define MAX_NB_PORT (LastPort-FirstPort+1)
 
