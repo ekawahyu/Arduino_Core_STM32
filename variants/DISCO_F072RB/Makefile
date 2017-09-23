@@ -52,7 +52,7 @@ CFLAGS += -specs=nano.specs
 
 CFLAGS += -DSTM32F0xx -DSTM32F072xB ############ need to move/define this somewhere else
 
-CXXFLAGS = -fno-rtti -fno-exceptions
+CXXFLAGS = -fno-rtti -fno-exceptions -std=gnu++11
 
 ###################################################
 
