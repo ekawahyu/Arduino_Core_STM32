@@ -48,6 +48,11 @@
   * @{
   */
 #include "usb_interface.h"
+#include "usbd_core.h"
+#ifdef USBD_USE_CDC
+#include "usbd_cdc.h"
+#include "usbd_cdc_if.h"
+#endif //USBD_USE_CDC
 
 /**
   * @}
@@ -95,6 +100,9 @@
 #ifdef USBD_USE_HID_COMPOSITE
 static USBD_HandleTypeDef hUSBD_Device_HID;
 #endif //USBD_USE_HID_COMPOSITE
+#ifdef USBD_USE_CDC
+/*static*/ USBD_HandleTypeDef hUsbDeviceFS;
+#endif //USBD_USE_CDC
 /**
   * @}
   */
@@ -128,6 +136,16 @@ void usbd_interface_init(void)
   /* Start Device Process */
   USBD_Start(&hUSBD_Device_HID);
 #endif // USBD_USE_HID_COMPOSITE
+#ifdef USBD_USE_CDC
+  /* Init Device Library,Add Supported Class and Start the library*/
+  USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS);
+
+  USBD_RegisterClass(&hUsbDeviceFS, &USBD_CDC);
+
+  USBD_CDC_RegisterInterface(&hUsbDeviceFS, &USBD_Interface_fops_FS);
+
+  USBD_Start(&hUsbDeviceFS);
+#endif // USBD_USE_CDC
 }
 
 /**
