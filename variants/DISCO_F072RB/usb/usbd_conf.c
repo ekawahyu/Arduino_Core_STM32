@@ -56,6 +56,7 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+#ifdef USBCON
 PCD_HandleTypeDef hpcd_USB_FS;
 
 /* USER CODE BEGIN 0 */
@@ -773,5 +774,6 @@ void HAL_PCDEx_SetConnectionState(PCD_HandleTypeDef *hpcd, uint8_t state)
   } 
 /* USER CODE END 6 */
 }
+#endif //USBCON
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

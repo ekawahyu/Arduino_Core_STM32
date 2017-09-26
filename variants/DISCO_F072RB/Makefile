@@ -45,7 +45,7 @@ OBJCOPY=$(ARM_NONE_EABI_BIN)/arm-none-eabi-objcopy
 OBJDUMP=$(ARM_NONE_EABI_BIN)/arm-none-eabi-objdump
 SIZE=$(ARM_NONE_EABI_BIN)/arm-none-eabi-size
 
-CFLAGS  = -Wall -g -Os -D__STRICT_ANSI__
+CFLAGS  = -Wall -g -Os
 CFLAGS += -mlittle-endian -mcpu=cortex-m0  -march=armv6-m -mthumb
 CFLAGS += -ffunction-sections -fdata-sections
 CFLAGS += -Wl,--gc-sections -Wl,-Map=$(PROJ_NAME).map
