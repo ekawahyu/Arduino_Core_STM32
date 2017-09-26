@@ -394,5 +394,5 @@ Nucleo_32.menu.USB_interface.enable_HID.build.enable_usb={build.usb_flags} -DUSB
 Disco.menu.USB_interface.enable_USB=None
 Disco.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available)
 Disco.menu.USB_interface.enable_HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Disco.menu.USB_interface.enable_CDC=CDC (if available)
-#Disco.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Disco.menu.USB_interface.enable_CDC=CDC (if available)
+Disco.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
