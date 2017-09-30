@@ -154,6 +154,12 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   I2C_TypeDef *i2c_sda = pinmap_peripheral(obj->sda, PinMap_I2C_SDA);
   I2C_TypeDef *i2c_scl = pinmap_peripheral(obj->scl, PinMap_I2C_SCL);
 
+  //Pins SDA/SCL must not be NP
+  if(i2c_sda == NP || i2c_scl == NP) {
+    printf("ERROR: at least one I2C pin has no peripheral\n");
+    return;
+  }
+
   obj->i2c = pinmap_merge_peripheral(i2c_sda, i2c_scl);
 
   if(obj->i2c == NP) {
@@ -253,14 +259,14 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   handle->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
   handle->Init.NoStretchMode   = I2C_NOSTRETCH_DISABLE;
 
-  if(master == 0) {
-    HAL_NVIC_SetPriority(obj->irq, 0, 1);
-    HAL_NVIC_EnableIRQ(obj->irq);
+  handle->State = HAL_I2C_STATE_RESET;
+
+  HAL_NVIC_SetPriority(obj->irq, 0, 1);
+  HAL_NVIC_EnableIRQ(obj->irq);
 #ifdef STM32F1xx
-    HAL_NVIC_SetPriority(obj->irqER, 0, 1);
-    HAL_NVIC_EnableIRQ(obj->irqER);
+  HAL_NVIC_SetPriority(obj->irqER, 0, 1);
+  HAL_NVIC_EnableIRQ(obj->irqER);
 #endif
-  }
 
   // Init the I2C
   HAL_I2C_Init(handle);
@@ -333,17 +339,18 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
 
 {
   i2c_status_e ret = I2C_ERROR;
-  HAL_StatusTypeDef status = HAL_OK;
+  uint32_t tickstart = HAL_GetTick();
 
-  // Check the communication status
-  status = HAL_I2C_Master_Transmit(&(obj->handle), dev_address, data, size, I2C_TIMEOUT_TICK);
-
-  if(status == HAL_OK)
+  if(HAL_I2C_Master_Transmit_IT(&(obj->handle), dev_address, data, size) == HAL_OK){
     ret = I2C_OK;
-  else if(status == HAL_TIMEOUT)
-    ret = I2C_TIMEOUT;
-  else
-    ret = I2C_ERROR;
+    // wait for transfer completion
+    while((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
+           && (ret != I2C_TIMEOUT)){
+      if((HAL_GetTick() - tickstart) > I2C_TIMEOUT_TICK) {
+        ret = I2C_TIMEOUT;
+      }
+    }
+  }
 
   return ret;
 }
@@ -377,9 +384,17 @@ void i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint8_t size)
 i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint8_t size)
 {
   i2c_status_e ret = I2C_ERROR;
+  uint32_t tickstart = HAL_GetTick();
 
-  if(HAL_I2C_Master_Receive(&(obj->handle), dev_address, data, size, I2C_TIMEOUT_TICK) == HAL_OK) {
+  if(HAL_I2C_Master_Receive_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
     ret = I2C_OK;
+    // wait for transfer completion
+    while((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
+           && (ret != I2C_TIMEOUT)){
+      if((HAL_GetTick() - tickstart) > I2C_TIMEOUT_TICK) {
+        ret = I2C_TIMEOUT;
+      }
+    }
   }
 
   return ret;
