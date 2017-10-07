@@ -264,6 +264,24 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   USBD_LL_DevDisconnected((USBD_HandleTypeDef*)hpcd->pData);
 }
 
+#ifdef USBCON
+extern PCD_HandleTypeDef hpcd_USB_FS;
+
+/**
+* @brief This function handles USB global interrupt / USB wake-up interrupt through EXTI line 18.
+*/
+void USB_IRQHandler(void)
+{
+  /* USER CODE BEGIN USB_IRQn 0 */
+
+  /* USER CODE END USB_IRQn 0 */
+  HAL_PCD_IRQHandler(&hpcd_USB_FS);
+  /* USER CODE BEGIN USB_IRQn 1 */
+
+  /* USER CODE END USB_IRQn 1 */
+}
+#endif //USBCON
+
 /*******************************************************************************
                        LL Driver Interface (USB Device Library --> PCD)
 *******************************************************************************/
