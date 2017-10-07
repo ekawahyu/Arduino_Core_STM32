@@ -104,30 +104,6 @@ const PinName digitalPin[] = {
 }
 #endif
 
-/*
- * UART objects
- */
-
-HardwareSerial  Serial(PA_10, PA_9); // Connected to ST-Link
-
-void serialEvent() __attribute__((weak));
-void serialEvent() { }
-
-//#ifdef ENABLE_SERIAL1
-//HardwareSerial  Serial1(PA_10, PA_9);
-//
-//void serialEvent1() __attribute__((weak));
-//void serialEvent1() { }
-//#endif
-
-void serialEventRun(void)
-{
-  if (Serial.available()) serialEvent();
-//#ifdef ENABLE_SERIAL1
-//  if (Serial1.available()) serialEvent1();
-//#endif
-}
-
 // ----------------------------------------------------------------------------
 
 #ifdef __cplusplus
