@@ -8,8 +8,9 @@ SRCS += wiring_analog.c wiring_digital.c wiring_shift.c wiring_time.c
 SRCS += analog.c clock.c core_callback.c digital_io.c hal_uart_emul.c hw_config.c interrupt.c
 SRCS += PinConfigured.c pinmap.c PortNames.c spi_com.c stm32_eeprom.c system_stm32yyxx.c timer.c twi.c 
 SRCS += uart_emul.c uart.c usb_device_core.c usb_device_ctlreq.c usb_device_ioreq.c usb_interface.c
-SRCS += usbd_hid_composite.c usb_device_cdc.c
-SRCS += usbd_cdc_if.c usbd_conf.c usbd_desc.c
+# SRCS += usbd_hid_composite.c
+SRCS += usb_device_cdc.c usbd_cdc_if.c usbd_desc_cdc.c
+SRCS += usbd_conf.c usbd_desc.c
 SRCS += PeripheralPins.c
 CXXSRCS = abi.cpp HardwareSerial.cpp IPAddress.cpp main.cpp new.cpp Print.cpp
 CXXSRCS += RingBuffer.cpp Stream.cpp Tone.cpp wiring_pulse.cpp WMath.cpp WString.cpp
@@ -53,7 +54,7 @@ CFLAGS += -Wl,--gc-sections -Wl,-Map=$(PROJ_NAME).map
 CFLAGS += -specs=nano.specs
 #CFLAGS += -u _printf_float -u _scanf_float
 
-CFLAGS += -DSTM32F0xx -DSTM32F072xB -DUSBCON -DUSBD_USE_CDC -DUSE_USB_FS ############ need to move/define this somewhere else
+CFLAGS += -DSTM32F0xx -DSTM32F072xB -DUSBCON -DUSBD_USE_CDC -DUSE_USB_FS -DUSB_PRODUCT=\"test\" ############ need to move/define this somewhere else
 
 CXXFLAGS = -fno-rtti -fno-exceptions -std=gnu++11
 

@@ -100,6 +100,14 @@ extern USBD_DescriptorsTypeDef CDC_Desc;
   * @{
   */ 
   
+uint8_t * USBD_DeviceDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t * USBD_LangIDStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t * USBD_ManufacturerStrDescriptor ( USBD_SpeedTypeDef speed , uint16_t *length);
+//uint8_t * USBD_CDC_ProductStrDescriptor ( USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t * USBD_SerialStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+//uint8_t * USBD_CDC_ConfigStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+//uint8_t * USBD_CDC_InterfaceStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
+
 /**
   * @}
   */ 
