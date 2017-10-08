@@ -13,8 +13,8 @@ SRCS += usbd_cdc_if.c usbd_conf.c usbd_desc.c
 SRCS += PeripheralPins.c
 CXXSRCS = abi.cpp HardwareSerial.cpp IPAddress.cpp main.cpp new.cpp Print.cpp
 CXXSRCS += RingBuffer.cpp Stream.cpp Tone.cpp wiring_pulse.cpp WMath.cpp WString.cpp
-CXXSRCS += variant.cpp
-INOSRCS = Blink.ino
+CXXSRCS += variant.cpp USBSerial.cpp
+INOSRCS = USBCDC.ino
 
 # all the files will be generated with this name (main.elf, main.bin, main.hex, etc)
 PROJ_NAME=main
@@ -22,6 +22,7 @@ PROJ_NAME=main
 # Location of the STM32F0xx HAL Drivers
 SYSTEM=../../system
 DRIVER=../../system/Drivers
+LIBRARY=../../libraries
 
 # Location of the linker scripts
 LDSCRIPT_INC=./
@@ -60,11 +61,13 @@ CXXFLAGS = -fno-rtti -fno-exceptions -std=gnu++11
 
 vpath %.c $(DRIVER)/CMSIS/Device/ST/STM32F0xx/Source/Templates
 vpath %.c $(SYSTEM) ../../cores/arduino ../../cores/arduino/stm32
+vpath %.c $(LIBRARY)/USBSerial/src
 vpath %.c ./usb
 vpath %.cpp ../../cores/arduino
+vpath %.cpp $(LIBRARY)/USBSerial/src
 vpath %.s $(DRIVER)/CMSIS/Device/ST/STM32F0xx/Source/Templates/gcc
 vpath %.a $(DRIVER)
-vpath %.ino ../../../examples/Blink
+vpath %.ino ../../../examples/USBCDC
 
 ROOT=$(shell pwd)
 
@@ -75,6 +78,7 @@ CFLAGS += -I$(SYSTEM)/Middlewares/ST/STM32_USB_Device_Library/Core/Inc
 CFLAGS += -I$(SYSTEM)/Middlewares/ST/STM32_USB_Device_Library/Core/Src
 CFLAGS += -I$(SYSTEM)/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
 CFLAGS += -I$(SYSTEM)/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src
+CFLAGS += -I$(LIBRARY)/USBSerial/src
 CFLAGS += -I../../cores/arduino -I../../cores/arduino/stm32
 
 ASMSRCS += startup_stm32f072xb.s ############ need to move/define this somewhere else

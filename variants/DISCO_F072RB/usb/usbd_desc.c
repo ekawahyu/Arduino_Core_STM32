@@ -109,7 +109,7 @@ uint8_t *     USBD_FS_InterfaceStrDescriptor( USBD_SpeedTypeDef speed , uint16_t
 uint8_t *     USBD_FS_USRStringDesc (USBD_SpeedTypeDef speed, uint8_t idx , uint16_t *length);  
 #endif /* USB_SUPPORT_USER_STRING_DESC */  
 
-USBD_DescriptorsTypeDef FS_Desc =
+USBD_DescriptorsTypeDef CDC_Desc =
 {
   USBD_FS_DeviceDescriptor,
   USBD_FS_LangIDStrDescriptor, 
